@@ -1,0 +1,24 @@
+Problem :: Merge two BST 's
+Given two BSTs, return elements of merged BSTs in sorted form.
+
+Time Complexity :: O(N)
+Space Complexity :: O(N)
+Code ::
+class Solution {
+    void solve(Node * root , vector<int>&v){
+        if(!root)return ;
+        solve(root->left , v);
+        v.push_back(root->data);
+        solve(root->right , v);
+    }
+  public:
+    vector<int> merge(Node *root1, Node *root2) {
+        vector<int>v1,v2,v3;
+        solve(root1 , v1);
+        solve(root2 , v2);
+        for(int i:v1)v3.push_back(i);
+        for(int i:v2)v3.push_back(i);
+        sort(begin(v3) , end(v3));
+        return v3;
+    }
+};
