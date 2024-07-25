@@ -1,0 +1,31 @@
+Problem :: Array to BST
+Difficulty: EasyAccuracy: 46.02%Submissions: 60K+Points: 2
+Given a sorted array. Convert it into a Height Balanced Binary Search Tree (BST). Return the root of the BST.
+
+Height-balanced BST means a binary tree in which the depth of the left subtree and the right subtree of every node never differ by more than 1.
+
+Note: The driver code will check the BST, if it is a Height-balanced BST, the output will be true otherwise the output will be false.
+
+
+Time Complexity :: O ( N )
+Space Complexity :: O ( N )
+
+Code ::
+class Solution {
+    Node * solve(vector<int>&nums , int s , int e){
+        if(s>e)return NULL;
+        if(s==e){
+            Node * r=  new Node(nums[s]);
+            return r;
+        }
+        int mid = (s+e)/2;
+        Node * root =new  Node(nums[mid]);
+        root->left = solve(nums , s , mid-1);
+        root->right = solve(nums , mid+1 , e);
+        return root;
+    }
+  public:
+    Node* sortedArrayToBST(vector<int>& nums) {
+       return solve(nums , 0 , nums.size()-1);
+    }
+};
