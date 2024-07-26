@@ -1,0 +1,27 @@
+Problem :: 
+K-Pangrams
+Difficulty: EasyAccuracy: 20.91%Submissions: 40K+Points: 2
+Given a string str and an integer k, return true if the string can be changed into a pangram after at most k operations, else return false.
+
+A single operation consists of swapping an existing alphabetic character with any other lowercase alphabetic character.
+
+Note - A pangram is a sentence containing every letter in the english alphabet.
+Time Complexity :: O(N)
+Space Complexity :: O(N)
+
+Code :: 
+class Solution {
+  public:
+    bool kPangram(string str, int k) {
+        unordered_map<int,int>m;
+        for(int i=0 ;i<str.size() ; i++ ){
+           if(str[i]!=' ') m[str[i]]++;
+        }
+        int cnt =0;
+        for(auto i:m){
+            cnt += i.second;
+        }
+        if(abs(26 - m.size())>k or cnt<26)return 0;
+        return 1;
+    }
+};
