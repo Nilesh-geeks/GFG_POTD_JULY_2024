@@ -1,0 +1,46 @@
+Problem :: 
+Rat in a Maze Problem - I
+Difficulty: MediumAccuracy: 35.75%Submissions: 265K+Points: 4
+Consider a rat placed at (0, 0) in a square matrix mat of order n* n. It has to reach the destination at (n - 1, n - 1). Find all possible paths that the rat can take to reach from source to destination. The directions in which the rat can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right). Value 0 at a cell in the matrix represents that it is blocked and rat cannot move to it while value 1 at a cell in the matrix represents that rat can be travel through it.
+Note: In a path, no cell can be visited more than one time. If the source cell is 0, the rat cannot move to any other cell. In case of no path, return an empty list. The driver will output "-1" automatically.
+
+Time Complexity :: O(M*N*4)
+Space Complexity :: O(M*N*)
+
+Code :: 
+class Solution {
+    vector<string>v;
+    void solve(vector<vector<int>>&mat , int row , int col,  vector<vector<bool>>&vis , string t){
+        if(row == mat.size()-1 && col == mat[0].size()-1){
+            v.push_back(t);
+            return ;
+        }
+        vis[row][col] =1;
+        int dr[] = {-1,0,1,0};
+        int dc[] = { 0 ,1 ,0 , -1};
+        for(int i=0 ; i<4 ; i++){
+           int newr =  row + dr[i];
+           int newc =  col + dc[i];
+           if(newr>=0 && newr<mat.size() && newc>=0 && newc<mat[0].size() && mat[newr][newc] == 1 && vis[newr][newc]==0){
+             if(i==0)t.push_back('U');
+             if(i==1 )t.push_back('R');
+             if(i==2 )t.push_back('D');
+             if(i==3 )t.push_back('L');
+             solve(mat , newr , newc , vis , t);
+             t.pop_back();
+               
+           }
+        }
+        vis[row][col] =0;
+    }
+  public:
+    vector<string> findPath(vector<vector<int>> &mat) {
+        if(mat[0][0]==0)return v;
+        int n = mat.size() , m = mat[0].size();
+        vector<vector<bool>>vis(n , vector<bool>(m,0));
+        string t ="";
+        solve(mat, 0, 0  , vis   , t);
+        sort(begin(v) , end(v));
+        return v;
+    }
+};
