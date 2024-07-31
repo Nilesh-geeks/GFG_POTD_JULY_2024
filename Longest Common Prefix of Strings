@@ -1,0 +1,28 @@
+Problem :: Longest Common Prefix of Strings
+Difficulty: EasyAccuracy: 29.52%Submissions: 259K+Points: 2
+Given an array of strings arr. Return the longest common prefix among all strings present in the array. If there's no prefix common in all the strings, return "-1".
+
+Time Complexity :: O(N*min(arr[i])
+Space Complexity :: O(min(arr[i])
+
+Code :: 
+ class Solution {
+  public:
+
+    string longestCommonPrefix(vector<string> arr) {
+        int n = INT_MAX;
+        for(auto it:arr){
+            int k= it.size();
+            n = min(n , k);
+        }
+        string t = "";
+        for(int i=0 ; i<n ; i++){
+            char c = arr[0][i];
+            for(int j=0 ; j<arr.size() ; j++){
+                if(arr[j][i]!=c)returnt.size()==0?"-1":t;
+            }
+            t+=c;
+        }
+        return t.size()==0?"-1":t;
+    }
+};
